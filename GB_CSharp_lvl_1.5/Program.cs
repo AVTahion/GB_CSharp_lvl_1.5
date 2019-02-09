@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 /* 1)   Создать программу, которая будет проверять корректность ввода логина.Корректным логином будет строка от 2 до 10 символов, содержащая только буквы латинского алфавита или цифры, при этом цифра не может быть первой:
         а) без использования регулярных выражений;
@@ -46,9 +47,26 @@ namespace GB_CSharp_lvl_1._5
             {
                 Console.WriteLine("Введен некорректный логин");
             }
+            Console.WriteLine();
+            loginIn = LoginCheckRegex(login);
+            if (loginIn)
+            {
+                Console.WriteLine("Логин корректен");
+            }
+            else
+            {
+                Console.WriteLine("Введен некорректный логин");
+            }
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Метод проверки логина без регулярного выражения
+        /// </summary>
+        /// <param name="login">Проверяемый логин</param>
+        /// <param name="loginMin">Минимальное кол-во символов в логине</param>
+        /// <param name="loginMax">Максимальное кол-во символов в логине</param>
+        /// <returns></returns>
         private static bool LoginCheck(string login, int loginMin, int loginMax)
         {
             if (login.Length > loginMax || login.Length < loginMin) return false;
@@ -61,6 +79,17 @@ namespace GB_CSharp_lvl_1._5
                 else x = false;
             }
             return x;
+        }
+
+
+        /// <summary>
+        /// Метод проверки логина по регулярному выражению
+        /// </summary>
+        /// <param name="login">Проверяемый логин</param>
+        /// <returns></returns>
+        private static bool LoginCheckRegex(string login)
+        {
+           return Regex.IsMatch(login, @"\b[a-zA-Z][a-zA-Z0-9]{1,9}\b");
         }
     }
 }
