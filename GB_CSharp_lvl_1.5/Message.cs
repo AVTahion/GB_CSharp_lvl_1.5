@@ -71,6 +71,7 @@ namespace GB_CSharp_lvl_1._5
                 if (pattern.IsMatch(textArr[i])) Array.Clear(textArr, i, 1);
                 result += textArr[i] + ' ';
             }
+            text.Trim();
             return result;
         }
     }
