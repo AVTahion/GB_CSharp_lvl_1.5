@@ -58,7 +58,7 @@ namespace GB_CSharp_lvl_1._5
         /// <summary>
         /// Метод удаляет из сообщения все слова, которые заканчиваются на заданный символ.
         /// </summary>
-        /// <param name="text">Входное сообщение</param>
+        /// <param name="text">Входящее сообщение</param>
         /// <param name="X"></param>
         /// <returns></returns>
         internal static string DelitX (string text, char X)
@@ -72,6 +72,27 @@ namespace GB_CSharp_lvl_1._5
                 result += textArr[i] + ' ';
             }
             text.Trim();
+            return result;
+        }
+
+        /// <summary>
+        /// Метод возвращающий самое длинное слово сообщения.
+        /// </summary>
+        /// <param name="text">Входящее сообщение</param>
+        /// <returns>Самое длинное слово в сообщении</returns>
+        internal static string LongestWord (string text)
+        {
+            StringBuilder textA = new StringBuilder(text);
+            for (int i = 0; i < textA.Length;)
+                if (char.IsPunctuation(textA[i])) textA.Remove(i, 1);
+                else ++i;
+            text = textA.ToString();
+            string[] textArr = text.Split(' ');
+            string result = textArr[0];
+            for (int i = 0; i < textArr.Length; ++i)
+            {
+                if (result.Length < textArr[i].Length) result = textArr[i];
+            }
             return result;
         }
     }

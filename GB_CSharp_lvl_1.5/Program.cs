@@ -63,13 +63,18 @@ namespace GB_CSharp_lvl_1._5
             //string text = Console.ReadLine();
             //Message.WordsSmallerN(text, 4);
 
+            //Console.WriteLine("Введите текст:");
+            //string text = Console.ReadLine();
+            //char x = 'a';
+            //text = Message.DelitX(text, x);
+            //Console.WriteLine(text);
+            //Console.ReadLine();
 
             Console.WriteLine("Введите текст:");
             string text = Console.ReadLine();
-            char x = 'a';
-            text = Message.DelitX(text, x);
-            Console.WriteLine(text);
+            Console.WriteLine($"Самое длинное слово в тексте:{Message.LongestWord(text)}");
             Console.ReadLine();
+
         }
 
         /// <summary>
