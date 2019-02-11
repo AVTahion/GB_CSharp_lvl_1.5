@@ -30,83 +30,70 @@ using System.Text.RegularExpressions;
 
 namespace GB_CSharp_lvl_1._5
 {
-    class Program
+    /// <summary>
+    /// Класс содержит методы обработки текста
+    /// </summary>
+    internal static class Message
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Метод выводит слова сообщения,  которые содержат не более n букв
+        /// </summary>
+        /// <param name="text">Входящий текст</param>
+        /// <param name="n">Макс кол-во букв в слове</param>
+        internal static void WordsSmallerN(string text, int n)
         {
-            int loginMin = 2;
-            int loginMax = 10;
-            Console.WriteLine("Введите логин");
-            string login = Console.ReadLine();
-            bool loginIn = LoginCheck(login, loginMin, loginMax);
-            if (loginIn)
-            {
-                Console.WriteLine("Логин корректен");
-            }
-            else
-            {
-                Console.WriteLine("Введен некорректный логин");
-            }
-            Console.WriteLine();
-            loginIn = LoginCheckRegex(login);
-            if (loginIn)
-            {
-                Console.WriteLine("Логин корректен");
-            }
-            else
-            {
-                Console.WriteLine("Введен некорректный логин");
-            }
-            Console.ReadLine();
-
-            //Console.WriteLine("Введите текст:");
-            //string text = Console.ReadLine();
-            //Message.WordsSmallerN(text, 4);
-
-            //Console.WriteLine("Введите текст:");
-            //string text = Console.ReadLine();
-            //char x = 'a';
-            //text = Message.DelitX(text, x);
-            //Console.WriteLine(text);
-            //Console.ReadLine();
-
-            Console.WriteLine("Введите текст:");
-            string text = Console.ReadLine();
-            Console.WriteLine($"Самое длинное слово в тексте:{Message.LongestWord(text)}");
-            Console.ReadLine();
-
+            StringBuilder textA = new StringBuilder(text);
+            for (int i = 0; i < textA.Length;)
+                if (char.IsPunctuation(textA[i])) textA.Remove(i, 1);
+            else ++i;
+            string x = textA.ToString();
+            string[] textArr = x.Split(' ');
+            for (int i = 0; i < textArr.Length; ++i)
+                if (textArr[i].Length < n)
+                {
+                    Console.WriteLine(textArr[i]);
+                }
         }
 
         /// <summary>
-        /// Метод проверки логина без регулярного выражения
+        /// Метод удаляет из сообщения все слова, которые заканчиваются на заданный символ.
         /// </summary>
-        /// <param name="login">Проверяемый логин</param>
-        /// <param name="loginMin">Минимальное кол-во символов в логине</param>
-        /// <param name="loginMax">Максимальное кол-во символов в логине</param>
+        /// <param name="text">Входящее сообщение</param>
+        /// <param name="X"></param>
         /// <returns></returns>
-        private static bool LoginCheck(string login, int loginMin, int loginMax)
+        internal static string DelitX (string text, char X)
         {
-            if (login.Length > loginMax || login.Length < loginMin) return false;
-            char[] loginArr = login.ToCharArray();
-            if (Char.IsDigit(loginArr[0])) return false;
-            bool x = false; 
-            foreach (char i in loginArr)
+            string[] textArr = text.Split(' ');
+            string result = "";
+            Regex pattern = new Regex($"{X}\\b");
+            for (int i = 0; i < textArr.Length; ++i)
             {
-                if (char.IsDigit(i) || char.IsLetter(i)) x = true;
-                else x = false;
+                if (pattern.IsMatch(textArr[i])) Array.Clear(textArr, i, 1);
+                result += textArr[i] + ' ';
             }
-            return x;
+            text.Trim();
+            return result;
         }
 
-
         /// <summary>
-        /// Метод проверки логина по регулярному выражению
+        /// Метод возвращающий самое длинное слово сообщения.
         /// </summary>
-        /// <param name="login">Проверяемый логин</param>
-        /// <returns></returns>
-        private static bool LoginCheckRegex(string login)
+        /// <param name="text">Входящее сообщение</param>
+        /// <returns>Самое длинное слово в сообщении</returns>
+        internal static string LongestWord (string text)
         {
-           return Regex.IsMatch(login, @"\b[a-zA-Zа-яА-Я][a-zA-Z0-9а-яА-Я]{1,9}\b");
+            StringBuilder textA = new StringBuilder(text);
+            for (int i = 0; i < textA.Length;)
+                if (char.IsPunctuation(textA[i])) textA.Remove(i, 1);
+                else ++i;
+            text = textA.ToString();
+            string[] textArr = text.Split(' ');
+            string result = textArr[0];
+            for (int i = 0; i < textArr.Length; ++i)
+            {
+                if (result.Length < textArr[i].Length) result = textArr[i];
+            }
+            return result;
         }
     }
 }
