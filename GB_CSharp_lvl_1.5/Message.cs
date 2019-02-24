@@ -95,5 +95,26 @@ namespace GB_CSharp_lvl_1._5
             }
             return result;
         }
+
+        /// <summary>
+        /// Метод производит частотный анализ текста
+        /// </summary>
+        /// <param name="templates">Массив слов</param>
+        /// <param name="text">Текст для анализа</param>
+        /// <returns></returns>
+        internal static Dictionary<string, int> FrequencyArray(string[] templates, string text)
+        {
+            Dictionary<string, int> freqArray = new Dictionary<string, int>();
+            string[] textArray = text.Split(' ');
+            for (int i = 0; i < templates.Length; i++)
+            {
+                freqArray.Add(templates[i], 0);
+                foreach (var item in textArray)
+                {
+                    if (templates[i].Equals(item)) freqArray[templates[i]]++;
+                }
+            }
+            return freqArray;
+        }
     }
 }

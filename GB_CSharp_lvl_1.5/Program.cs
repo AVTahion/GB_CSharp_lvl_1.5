@@ -75,6 +75,14 @@ namespace GB_CSharp_lvl_1._5
             Console.WriteLine($"Самое длинное слово в тексте:{Message.LongestWord(text)}");
             Console.ReadLine();
 
+            string[] vs = new string[4] { "vfvf", "gfgf", "rere", "dsds" };
+            string text2 = "vfvf gfgf vfvf gfgf gfgf vfvf gfgf rere re yt rere gfgf dsds dsds dsdsdsds kjkju";
+            Dictionary<string, int> dict = Message.FrequencyArray(vs, text2);
+            foreach (var item in dict)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
         }
 
         /// <summary>
